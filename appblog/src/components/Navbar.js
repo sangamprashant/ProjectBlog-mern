@@ -23,18 +23,21 @@ function Navbar() {
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <Link class="nav-link" aria-current="page" to="/myapp" style={{color:'white'}}>
-                Home
+              
+              
+              <Link class="nav-link" aria-current="page" to="/Admin/home" style={{color:'white'}}>
+                Admin
               </Link>
-              <Link class="nav-link" aria-current="page" to="/about" style={{color:'white'}}>
-                About
+              <Link class="nav-link" aria-current="page" to="/admin/signup" style={{color:'white'}}>
+                SignUp
               </Link>
-              <Link class="nav-link" aria-current="page" to="/contact" style={{color:'white'}}>
-                Contact
+              <Link class="nav-link" aria-current="page" to="/admin/signin" style={{color:'white'}}>
+                Signin
               </Link>
-              <Link class="nav-link" aria-current="page" to="/services" style={{color:'white'}}>
-                Services
+              <Link class="nav-link" aria-current="page" to="/Admin/profile/image" style={{color:'white'}}>
+                Pic
               </Link>
+              
 
             </div>
           </div>
