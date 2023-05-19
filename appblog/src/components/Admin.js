@@ -23,7 +23,7 @@ function Admin() {
       });
 
     // Fetch app projects for the user
-    fetch(`http://localhost:5000/api/projects/app/${userId}`)
+    fetch(`http://localhost:5000/api/projects/application/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setAppProjects(data.projects);
@@ -35,63 +35,8 @@ function Admin() {
 
 
   return (
-    <div style={{ marginTop: "100px" }}>
-      <div class="container">
-        <div class="view-account">
-          <section class="module">
-            <div class="module-inner">
-              <div class="side-bar">
-                <div class="user-info">
-                  <img
-                    class="img-profile img-circle img-responsive center-block"
-                    src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80"
-                    alt=""
-                  />
-                  <ul class="meta list list-unstyled">
-                    <li class="name">
-                     Prashant Srivastav <br/>
-                      <label class="label label-info">UX Designer</label>
-                    </li>
-                   
-                    <li class="activity">Last logged in: Today at 2:18pm</li>
-                  </ul>
-                </div>
-                <nav class="side-menu">
-                  <ul class="nav">
-                    <li>
-                      <a href="#">
-                        <span class="fa fa-user"></span> Profile
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="fa fa-cog"></span> Settings
-                      </a>
-                    </li>
-                    <li class="active">
-                      <a href="#">
-                        <span class="fa fa-credit-card"></span> Billing
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="fa fa-envelope"></span> Messages
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="user-drive.html">
-                        <span class="fa fa-th"></span> Drive
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="fa fa-clock-o"></span> Reminders
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
+    <div>
+      
 
               <div class="content-panel">
                 <div class="content-header-wrapper">
@@ -241,11 +186,7 @@ function Admin() {
                 </div>
               </div>
               
-              
-            </div>
-          </section>
-        </div>
-      </div>
+             
     </div>
   );
 }
