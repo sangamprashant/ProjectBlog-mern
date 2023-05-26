@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { Types: { ObjectId } } = require('mongoose');
-
+const PROJECTBLOGUSER = mongoose.model("PROJECTBLOGUSER");
 const requireLogin = require("../middleware/requireLogin");
 const PROJECTBLOGPROJECT = mongoose.model("PROJECTBLOGPROJECT");
 
@@ -52,24 +52,24 @@ router.get("/api/projects/:Project/:userId", (req, res) => {
   });
 
   
-  // Get app projects for a particular user
-  router.get("/api/user/items/:userName/:type", (req, res) => {
-    const { userName, type } = req.params;
-    let userId;
+  router.get("/api/user/searched/:userName", (req, res) => {
+    const { userName } = req.params;
   
-    try {
-      userId = mongoose.Types.ObjectId(userName);
-    } catch (error) {
-      console.log(error);
-      res.status(400).json({ error: "Invalid user ID" });
-      return;
-    }
+    PROJECTBLOGUSER.findOne({ userName })
+      .then((user) => {
+        if (!user) {
+          res.status(404).json({ error: "User not found" });
+          return;
+        }
   
-    PROJECTBLOGPROJECT.find({ type, user: userId })
-      .sort({ createdAt: -1 })
-      .populate("user", "_id name") // Optional: Populate user details
-      .then((items) => {
-        res.json({ items });
+        PROJECTBLOGPROJECT.find({ user: user._id })
+          .then((projects) => {
+            res.json({ user, projects });
+          })
+          .catch((error) => {
+            console.log(error);
+            res.status(500).json({ error: "Something went wrong" });
+          });
       })
       .catch((error) => {
         console.log(error);

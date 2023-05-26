@@ -5,7 +5,6 @@ function WebProject({ type, heading, userName }) {
   const [Projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // Fetch web projects for the user
     fetch(`http://localhost:5000/api/user/items/${userName}/${type}`)
       .then((response) => response.json())
       .then((data) => {

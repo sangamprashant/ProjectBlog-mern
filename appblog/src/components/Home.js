@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./css/Home.css";
-import WebProject from "./HomeSubComponent/WebProject";
 import { useParams } from "react-router-dom";
 
-function Home() {
-  const {userName}=useParams();
+function Home({setSearchedUser}) {
+  const { userName } = useParams();
+  useEffect(() => {
+    localStorage.removeItem("SearchedUser"); // Remove "SearchedUser" item from localStorage before making the API call
+  
+    fetch(`http://localhost:5000/api/user/searched/${userName}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.user) {
+          localStorage.setItem("SearchedUser", JSON.stringify(data.user));
+          setSearchedUser(data.user)
+        }
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userName]);
+
   return (
-    <div  class="content-panel">                <div class="content-header-wrapper">
-                  <h2 class="title">My Projects</h2>
-                </div>
-
-                <WebProject type="application" heading="Android Projects" userName={userName} />
-                <WebProject type="web" heading="Web Projects" userName={userName} />
-                </div>
-
-             
+    <div class="content-panel">
+      {" "}
+      <div class="content-header-wrapper">
+        <h2 class="title">My Projects</h2>
+      </div>
+      fdfd
+    </div>
   );
 }
 
