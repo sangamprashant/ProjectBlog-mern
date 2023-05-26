@@ -5,3 +5,11 @@
 a{
     color: white;
 }
+
+
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+  }

@@ -8,6 +8,13 @@ import Signup from "./components/Admin/Signiup";
 import Upload from "./components/Admin/Upload";
 import Landing from "./components/Landing";
 import { useEffect, useState } from "react";
+import Profile from "./components/Admin/Profile";
+import Resume from "./components/Admin/Resume";
+import Setting from "./components/Admin/Setting";
+import Quyalification from "./components/Admin/Quyalification";
+import SoftSkill from "./components/Admin/SoftSkill";
+import Intrest from "./components/Admin/Intrest";
+import Social from "./components/Admin/Social";
 function App() {
   const [SearchedUser,setSearchedUser]=useState();
   const [LoggedUser,setLoggedUser]=useState();
@@ -37,25 +44,36 @@ function App() {
                       </Link>
                     </li>
                     <li>
-                      <a href="#">
-                        <span className="fa fa-envelope"></span> Messages
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="user-drive.html">
-                        <span className="fa fa-th"></span> Drive
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span className="fa fa-clock-o"></span> Reminders
-                      </a>
+                      <Link to="/admin/qualification">
+                        <span className="fa fa-graduation-cap"></span> Qualification
+                      </Link>
+                      </li>
+                      <li>
+                      <Link to="/admin/skill">
+                        <span className="fa fa-code"></span> Programming Skill
+                      </Link>
+                   
                     </li>
                     <li>
-                      <a href="#">
+                      <Link to="/admin/intrest">
+                        <span className="fa fa-code"></span> Intrest
+                      </Link>
+                   
+                    </li>
+                    <li>
+                      <Link to="/admin/resume">
+                        <span className="fa fa-file-text "></span> Resume
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin/social">
+                        <span className="fa fa-file-text "></span> Social
+                      </Link>
+                    </li>
+                    <li>
+                    <Link to="/admin/setting">
                         <span className="fa fa-cog"></span> Settings
-                      </a>
+                        </Link>
                     </li>
 
        </> )
@@ -95,9 +113,17 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/:userName" element={<Home  setSearchedUser={setSearchedUser}/>} />
 
+                <Route path="/admin/profile" element={<Profile />} />
                 <Route path="/admin/projects" element={<Projects />} />
+                <Route path="/admin/resume" element={<Resume />} />
+                <Route path="/admin/qualification" element={<Quyalification />} />
+                <Route path="/admin/skill" element={<SoftSkill />} />
+                <Route path="/admin/intrest" element={<Intrest />} />
+                <Route path="/admin/social" element={<Social />} />
+                <Route path="/admin/setting" element={<Setting />} />
                 <Route path="/admin/signup" element={<Signup />} />
                 <Route path="/admin/signin" element={<Signin />} />
+
                 <Route path="/admin/upload" element={<Upload />} />
               </Routes>
             </div>
