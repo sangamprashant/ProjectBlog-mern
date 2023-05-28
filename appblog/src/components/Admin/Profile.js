@@ -14,7 +14,7 @@ function Profile() {
             </button>
           </div>
         </div>
-        <div>
+        
         {<div class="work">
           <h3>
             <i class="fa fa-briefcase"></i>Work Exrerience
@@ -73,7 +73,7 @@ function Profile() {
             </li>
           </ul>
         </div>}
-      </div>
+        <br/>
       {<div class="skills-prog">
      
       <ul>
@@ -105,8 +105,14 @@ function Profile() {
         
       </ul>
     </div>}
+    {<div class="interests-items" style={{marginTop:"150px"}}>
+        <div class="draw"><i class="fa fa-paint-brush"></i><span>Draw</span></div>
+        <div class="movie"><i class="fa fa-film"></i><span>Movie</span></div>
+        <div class="music"><i class="fa fa-headphones"></i><span>Music</span></div>
+        <div class="game"><i class="fa fa-gamepad"></i><span>Game</span></div>
+      </div>}
+      <br/>
     {<div class="follow">
-          <h3>Follow</h3>
           <div class="box">
             <a href="javascript:void(0);">
               <i class="fa fa-facebook"></i>

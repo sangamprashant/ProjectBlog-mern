@@ -12,6 +12,7 @@ function Intrest() {
                     </button>
                   </div>
                 </div>
+                <hr/>
                 {<div class="interests-items" style={{marginTop:"150px"}}>
         <div class="draw"><i class="fa fa-paint-brush"></i><span>Draw</span></div>
         <div class="movie"><i class="fa fa-film"></i><span>Movie</span></div>

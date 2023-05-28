@@ -19,15 +19,15 @@ function Quyalification() {
             <i class="fa fa-briefcase"></i>Work Exrerience
           </h3>
           <ul>
-            <li>
+            <li style={{paddingTop:"50px",paddingBottom:'50px'}}>
               <span>Front-end Web Designer</span>
               <small>Apr 2016 - Now</small>
             </li>
-            <li>
+            <li style={{paddingTop:"50px",paddingBottom:'50px'}}>
               <span>Design Assistant</span>
               <small>Mar 2015 - Dec 2015</small>
             </li>
-            <li>
+            <li style={{paddingTop:"50px",paddingBottom:'50px'}}>
               <span>Design Assistant (Part-time)</span>
               <small>Oct 2014 - Jul 2015</small>
             </li>
@@ -38,11 +38,11 @@ function Quyalification() {
             <i class="fa fa-graduation-cap"></i>Education
           </h3>
           <ul>
-            <li>
+            <li style={{paddingTop:"50px",paddingBottom:'50px'}}>
               <span>Department of Information Management</span>
               <small>Set 2010 - Jun 2014</small>
             </li>
-            <li>
+            <li style={{paddingTop:"50px",paddingBottom:'50px'}}>
               <span>Department of Data Processing</span>
               <small>Set 2007 - Jun 2010</small>
             </li>

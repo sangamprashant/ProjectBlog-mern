@@ -12,6 +12,7 @@ function SoftSkill() {
             </button>
           </div>
         </div>
+        <hr/>
         <div class="skills-prog">
      
       <ul>
