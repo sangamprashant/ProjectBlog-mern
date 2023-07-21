@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-
 function Resume() {
   const [uploadContainer, setUploadContainer] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  //cloudinary img 
+  //cloudinary img
   const [image, setImage] = useState("");
   //from server
   const [resume, setResume] = useState(null);
@@ -24,7 +23,7 @@ function Resume() {
       reader.readAsDataURL(file);
     }
   };
-//upload to server
+  //upload to server
   const handelOnClickUpload = () => {
     const data = new FormData();
     data.append("file", image);
@@ -43,23 +42,22 @@ function Resume() {
     setImageUrl(""); // Reset the image URL when uploadContainer changes
   }, [uploadContainer]);
 
-//get from server 
+  //get from server
   useEffect(() => {
-    const userId =  JSON.parse(localStorage.getItem("user"))._id; 
+    const userId = JSON.parse(localStorage.getItem("user"))._id;
     fetch(`http://localhost:5000/api/resume/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setResume(data.imageUrl);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
-        console.error('Failed to fetch resume:', error);
+        console.error("Failed to fetch resume:", error);
       });
   }, []);
 
   //to send to server from cludniry
   useEffect(() => {
-   
     if (url) {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
       fetch("http://localhost:5000/api/admin/add/resume", {
@@ -78,7 +76,7 @@ function Resume() {
             console.log(data.error);
           } else {
             console.log("Resume uploaded:", data);
-            setUploadContainer(false)
+            setUploadContainer(false);
           }
         })
         .catch((err) => console.log(err));
@@ -92,11 +90,17 @@ function Resume() {
           <h2 className="title">Admin Resume</h2>
           <div className="actions">
             {!uploadContainer ? (
-              <button className="btn btn-success" onClick={() => setUploadContainer(true)}>
+              <button
+                className="btn btn-success"
+                onClick={() => setUploadContainer(true)}
+              >
                 <i className="fa fa-plus"></i> Upload New Item
               </button>
             ) : (
-              <button className="btn btn-danger" onClick={() => setUploadContainer(false)}>
+              <button
+                className="btn btn-danger"
+                onClick={() => setUploadContainer(false)}
+              >
                 <i className="fa fa-times"></i> Cancel upload
               </button>
             )}
@@ -105,18 +109,34 @@ function Resume() {
         <hr />
 
         {!uploadContainer ? (
-          <img style={{ width: "100%" }} src={resume} alt="resume" />
+          <iframe style={{ width: "100%",height:'800px' }} src={resume} alt="resume" />
         ) : (
           <div className="row justify-content-center">
             <div className="col-md-12 col-lg-10 col-12">
               <div className="form-group files">
                 <label className="my-auto">Upload Your File</label>
-                <input type="file" className="form-control" onChange={handleFileChange} />
+                <input
+                  type="file"
+                  className="form-control"
+                  onChange={handleFileChange}
+                />
               </div>
-              {imageUrl && <img src={imageUrl} alt="uploaded file" style={{ maxWidth: "100%" }} />}
-              <button className="uploadBtn" onClick={()=>{handelOnClickUpload()}}>Upload</button>
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="uploaded file"
+                  style={{ maxWidth: "100%" }}
+                />
+              )}
+              <button
+                className="uploadBtn"
+                onClick={() => {
+                  handelOnClickUpload();
+                }}
+              >
+                Upload
+              </button>
             </div>
-            
           </div>
         )}
       </div>

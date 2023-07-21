@@ -29,7 +29,7 @@ function Signin() {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
          
-          navigate("/admin/home");
+          navigate("/admin/profile");
         }
         console.log(data);
       });
