@@ -1,5 +1,4 @@
 import React from "react";
-import Quyalification from "./Quyalification";
 import SoftSkill from "./SoftSkill";
 
 function Profile() {

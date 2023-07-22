@@ -32,15 +32,15 @@ mongoose.connect(process.env.MONGO_URL, {
 
 
 //serving the frontend
-//app.use(express.static(path.join(__dirname,"./shop/build")))
-//app.get("*",(req,res)=>{
-//  res.sendFile(
-//    path.join(__dirname,"./shop/build/index.html"),
-//    function (err){
-//      res.status(500).send(err)
-//    }
-//  )
-//})
+app.use(express.static(path.join(__dirname,"./appblog/build")))
+app.get("*",(req,res)=>{
+ res.sendFile(
+   path.join(__dirname,"./appblog/build/index.html"),
+   function (err){
+     res.status(500).send(err)
+   }
+ )
+})
 
 
 // start the server

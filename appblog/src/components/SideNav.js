@@ -1,138 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function SideNav() {
-    const [SearchedUser,setSearchedUser]=useState ();
-    const [LoggedUser,setLoggedUser]=useState();
-  
-    useEffect(() => {
-      const searchedUserFromStorage = localStorage.getItem("SearchedUser");
-      const parsedSearchedUser = !searchedUserFromStorage ? null:JSON.parse(searchedUserFromStorage);
-      setSearchedUser(parsedSearchedUser);
-      
-      const userFromStorage = localStorage.getItem("user");
-      const parsedUser = userFromStorage ? JSON.parse(userFromStorage) : null;
-      setLoggedUser(parsedUser);
-    }, []);
-    const LoggedUserORSearchedUser=()=>{
-        if (LoggedUser){
-          return(<>
-            <li>
-                          <Link to="/admin/profile">
-                            <span className="fa fa-user"></span> Profile
-                          </Link>
-                        </li>
-                        
-                        <li >
-                          <Link to="/admin/projects">
-                            <span className="fa fa-credit-card"></span> Projects
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/admin/qualification">
-                            <span className="fa fa-graduation-cap"></span> Qualification
-                          </Link>
-                          </li>
-                          <li>
-                          <Link to="/admin/skill">
-                            <span className="fa fa-code"></span> Programming Skill
-                          </Link>
-                       
-                        </li>
-                        <li>
-                          <Link to="/admin/intrest">
-                            <span className="fa fa-code"></span> Intrest
-                          </Link>
-                       
-                        </li>
-                        <li>
-                          <Link to="/admin/resume">
-                            <span className="fa fa-file-text "></span> Resume
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/admin/social">
-                            <span className="fa fa-file-text "></span> Social
-                          </Link>
-                        </li>
-                        <li>
-                        <Link to="/admin/setting">
-                            <span className="fa fa-cog"></span> Settings
-                            </Link>
-                        </li>
-    
-           </> )
-        }
-      }
+  const contactItems = [
+    { icon: "fa fa-globe", content: "https://mdbootstrap.com" },
+    { icon: "fa fa-github", content: "mdbootstrap" },
+    { icon: "fa fa-twitter", content: "@mdbootstrap" },
+    { icon: "fa fa-twitter", content: "@mdbootstrap" },
+    { icon: "fa fa-twitter", content: "@mdbootstrap" },
+    { icon: "fa fa-twitter", content: "@mdbootstrap" },
+    { icon: "fa fa-instagram", content: "mdbootstrap" },
+    { icon: "fa fa-facebook-f", content: "mdbootstrap" },
+    { icon: "fa fa-instagram", content: "mdbootstrap" },
+    { icon: "fa fa-instagram", content: "mdbootstrap" },
+    { icon: "fa fa-instagram", content: "mdbootstrap" },
+  ];
+  // Get the first 4 items from the contactItems array
+  const firstFourItems = contactItems.slice(0, 4);
+  const colors = ["#f39c12", "#333333", "#55acee", "#ac2bac", "#3b5998"];
   return (
     <div>
-      <div className="side-bar">
-                <div className="user-info">
-                  <img
-                    className="img-profile img-circle img-responsive center-block"
-                    src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80"
-                    alt=""
-                  />
-                  <ul className="meta list list-unstyled">
-                    <li className="name">
-                      {SearchedUser?SearchedUser.name:LoggedUser?LoggedUser.name:"Please Login or search"} <br />
-                      <label className="label label-info">{SearchedUser?SearchedUser.userName:LoggedUser?LoggedUser.userName:"Please Login or search"}</label>
-                    </li>
-
-                    <li className="activity">{SearchedUser?SearchedUser.email:LoggedUser?LoggedUser.email:"Please Login or search"}</li>
+      <div className="contact card my-4">
+        <div className="view-account">
+          <section className="module">
+            <div className="module-inner">
+              <div className=" my-2 ">
+                <div className="card-body mb-4 mb-md-0">
+                  <ul className="list-group list-group-flush rounded-3">
+                    {firstFourItems.map((item, index) => (
+                      <li
+                        className="list-group-item d-flex justify-content-between align-items-center p-3"
+                        key={index}
+                      >
+                        <i
+                          className={`fa-lg ${item.icon}`}
+                          style={{
+                            color: colors[index % colors.length],
+                            fontSize: "30px",
+                          }}
+                        ></i>
+                        <p className="mb-0">{item.content}</p>
+                      </li>
+                    ))}
                   </ul>
                 </div>
-                <nav className="side-menu">
-                  <ul className="nav">
-                  <li>
-                          <Link to="/admin/profile">
-                            <span className="fa fa-user"></span> Profile
-                          </Link>
-                        </li>
-                        
-                        <li >
-                          <Link to="/admin/projects">
-                            <span className="fa fa-credit-card"></span> Projects
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/admin/qualification">
-                            <span className="fa fa-graduation-cap"></span> Qualification
-                          </Link>
-                          </li>
-                          <li>
-                          <Link to="/admin/skill">
-                            <span className="fa fa-code"></span> Programming Skill
-                          </Link>
-                       
-                        </li>
-                        <li>
-                          <Link to="/admin/intrest">
-                            <span className="fa fa-code"></span> Intrest
-                          </Link>
-                       
-                        </li>
-                        <li>
-                          <Link to="/admin/resume">
-                            <span className="fa fa-file-text "></span> Resume
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/admin/social">
-                            <span className="fa fa-file-text "></span> Social
-                          </Link>
-                        </li>
-                        <li>
-                        <Link to="/admin/setting">
-                            <span className="fa fa-cog"></span> Settings
-                            </Link>
-                        </li>
-                    {LoggedUserORSearchedUser()}
-                  </ul>
-                </nav>
               </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default SideNav
+export default SideNav;

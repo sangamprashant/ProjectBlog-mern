@@ -3,7 +3,7 @@ import React from 'react'
 function Intrest() {
   return (
     <div>
-     <div class="content-panel">
+     <div class="">
      <div class="content-header-wrapper">
                   <h2 class="title"> Admin Intrest </h2>
                   <div class="actions">
