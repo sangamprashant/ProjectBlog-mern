@@ -154,13 +154,14 @@
   }
 
 
-
+.interest{
+  border: 1px solid #cdcdcd;
+}
   
  .interests-items {
     box-sizing: border-box;
     padding: 15px;
     width: 100%;
-    border: 1px solid #cdcdcd;
     text-align: center;
     display: flex;
     justify-content: space-between;

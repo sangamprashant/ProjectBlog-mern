@@ -1,16 +1,43 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
-function PublicFooter() {
-  const socialMediaLinks = [
-    { icon: "fa fa-facebook", link: "https://www.facebook.com" },
-    { icon: "fa fa-github", link: "https://github.com" },
-    { icon: "fa fa-instagram", link: "https://www.instagram.com" },
-    { icon: "fa fa-twitter", link: "https://twitter.com" },
-    { icon: "fa fa-pinterest-p", link: "https://www.pinterest.com" },
-    { icon: "fa fa-tumblr", link: "https://www.tumblr.com" },
-    { icon: "fa fa-codepen", link: "https://codepen.io/xichen/" },
-  ];
+function PublicFooter({footer,setFooter,footerContent,setFooterContent,user}) {
+
+    // Inside the fetchProjects function
+    const fetchFooterContent = async (id) => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/Footercontent/${id}`);
+        const data = await response.json();
+        setFooterContent(data.content)
+      } catch (error) {
+        console.error("Error fetching Footer Content:", error);
+      }
+    };
+    // Fetch work experience and education data on component mount
+    useEffect(() => {
+      fetchFooterContent(user._id);
+    }, [user]);
+   // Function to fetch the description items from the API
+   const fetchfooterData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/get/footer");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch description items");
+      }
+
+      const data = await response.json();
+      setFooter(data);
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+
+  // Fetch the description items when the component mounts
+  useEffect(() => {
+    fetchfooterData();
+  }, []);
 
   return (
     <div>
@@ -27,10 +54,7 @@ function PublicFooter() {
                 <h5 className="text-uppercase">Footer Content</h5>
 
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                  atque ea quis molestias. Fugiat pariatur maxime quis culpa
-                  corporis vitae repudiandae aliquam voluptatem veniam, est
-                  atque cumque eum delectus sint!
+                {footerContent}
                 </p>
               </div>
             </div>
@@ -38,7 +62,7 @@ function PublicFooter() {
 
           <div className="follow">
             <div className="box">
-              {socialMediaLinks.map((item, index) => (
+              {footer.map((item, index) => (
                 <a key={index} href={item.link}>
                   <i className={item.icon}></i>
                 </a>

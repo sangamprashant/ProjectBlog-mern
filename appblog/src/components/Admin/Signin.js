@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import "../css/Log.css"
-import {useNavigate, Link } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import "../css/Log.css";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LoginContext } from "../../context/LoginContext";
 function Signin() {
-    const [email,setEmail]=useState();
-    const [password,setPassword]=useState();
-    const navigate = useNavigate();
-    const notifyA = (msg) => toast.error(msg);
-    const notifyB = (msg) => toast.success(msg);
+  const { setLogged } = useContext(LoginContext);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+  const notifyA = (msg) => toast.error(msg);
+  const notifyB = (msg) => toast.success(msg);
   const postData = () => {
     // Sending data to server
     fetch(`http://localhost:5000/api/admin/signin`, {
@@ -28,14 +30,14 @@ function Signin() {
           notifyB("Signed In Successfully");
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-         
-          navigate("/admin/profile");
+          setLogged(true);
+          navigate("/");
         }
         console.log(data);
       });
   };
   return (
-    <div style={{marginTop:"100px"}}>
+    <div>
       <div className="login-page">
         <div className="form">
           <p>Prashant Login</p>
@@ -50,9 +52,7 @@ function Signin() {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="button" 
-            onClick={postData}
-            >
+            <button type="button" onClick={postData}>
               login
             </button>
             <p className="message">
@@ -65,4 +65,4 @@ function Signin() {
   );
 }
 
-export default Signin
+export default Signin;

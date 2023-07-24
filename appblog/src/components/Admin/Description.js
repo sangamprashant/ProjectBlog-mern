@@ -2,22 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function Intrest() {
-  const [interests, setinterest] = useState([]);
+function Description() {
   const [newTitle, setNewTitle] = useState("");
   const [newValue, setNewValue] = useState("");
 
+  // State to hold the list of description items
+  const [descriptionItems, setDescriptionItems] = useState([]);
+
   // Function to fetch the description items from the API
-  const fetchinterestData = async () => {
+  const fetchDescriptionItems = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/interest");
+      const response = await fetch("http://localhost:5000/api/get/details");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
       }
 
       const data = await response.json();
-      setinterest(data);
+      setDescriptionItems(data);
     } catch (error) {
       console.error(error);
       // Handle error
@@ -26,14 +28,14 @@ function Intrest() {
 
   // Fetch the description items when the component mounts
   useEffect(() => {
-    fetchinterestData();
+    fetchDescriptionItems();
   }, []);
 
   const handleAddItem = async () => {
     if (newTitle && newValue) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/add/interest",
+          "http://localhost:5000/api/admin/add/details",
           {
             method: "POST",
             headers: {
@@ -42,24 +44,24 @@ function Intrest() {
             },
             body: JSON.stringify({
               label: newTitle,
-              icon: newValue,
+              value: newValue,
             }),
           }
         );
 
         if (!response.ok) {
-          throw new Error("Failed to add interest item");
+          throw new Error("Failed to add description item");
         }
         // Clear the input fields
         setNewTitle("");
         setNewValue("");
-        fetchinterestData();
+        fetchDescriptionItems();
         // Show success message
-        toast.success("interest item added successfully");
+        toast.success("Description item added successfully");
       } catch (error) {
         console.error(error);
         // Handle error
-        toast.error("Failed to add interest item");
+        toast.error("Failed to add description item");
       }
     }
   };
@@ -67,7 +69,7 @@ function Intrest() {
   const deleteDescriptionItem = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/interest/${id}`,
+        `http://localhost:5000/api/delete/details/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -76,31 +78,34 @@ function Intrest() {
           },
         }
       );
-
+  
       if (!response.ok) {
-        throw new Error("Failed to delete interest item");
+        throw new Error("Failed to delete description item");
       }
-
-      fetchinterestData();
-
+  
+      fetchDescriptionItems();
+  
       // Show success message
-      toast.success("interest item deleted successfully");
+      toast.success("Description item deleted successfully");
     } catch (error) {
       console.error(error);
       // Handle error
-      toast.error("Failed to delete interest item");
+      toast.error("Failed to delete description item");
     }
   };
+  
 
   return (
     <div>
-      {/* inputs */}
+      {/* ... (existing code) ... */}
+
+      {/* Add section */}
       <div className="card my-3">
         <div className="card-body">
           <div className="row">
             <div className="col">
               <input
-                placeholder="Enter label"
+                placeholder="Enter title"
                 type="text"
                 className="form-control"
                 value={newTitle}
@@ -109,7 +114,7 @@ function Intrest() {
             </div>
             <div className="col">
               <input
-                placeholder="Enter icon :fa fa-xxxxx"
+                placeholder="Enter value"
                 type="text"
                 className="form-control"
                 value={newValue}
@@ -128,23 +133,33 @@ function Intrest() {
           </div>
         </div>
       </div>
-      {/* display */}
-      <div className="card my-3" style={{ backgroundColor: "white" }}>
-        <div className="card-body mb-4 mb-md-0">
-          <h4>Interests</h4>
-          <div className="interests-items">
-            {interests.map((interest, index) => (
-              <div key={index}>
-                <i className={` ${interest.icon}`}></i>
-                <span>{interest.label}</span>
-                <Link onClick={()=>{deleteDescriptionItem(interest._id)}}>Delete</Link>
+
+      {/* Display section */}
+      <div className="card mb-4">
+        <div className="card-body">
+          {descriptionItems.map((item, index) => (
+            <div className="row" key={index}>
+              <div className="col-sm-4">
+                <p className="mb-0">{item.label}</p>
               </div>
-            ))}
-          </div>
+              <div className="col-sm-4">
+                <p className="text-muted mb-0">{item.value}</p>
+              </div>
+              <div className="col-sm-4">
+                <Link
+                  className="text-danger"
+                  onClick={() => deleteDescriptionItem(item._id)}
+                >
+                  Delete
+                </Link>
+              </div>
+              {index < descriptionItems.length - 1 && <hr />}
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-export default Intrest;
+export default Description;

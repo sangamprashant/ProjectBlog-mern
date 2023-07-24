@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function PublicSkill({screen}) {
-  const skills = [
-    { category: "Android Developer", details: "Works on Java and Kotlin" },
-    {
-      category: "Fullstack developer",
-      details: "React.js, Node.js, HTML, CSS, JavaScript, MERN",
-    },
-    {
-      category: "Language",
-      details: "C, Java, Kotlin, HTML, CSS, React, JavaScript, Node",
-    },
-    { category: "Database", details: "MySQL, MongoDB" },
-    {
-      category: "Software",
-      details:
-        "VS-Code, Android Studio, MS-Office, Adobe Photoshop, Video and photo editing software",
-    },
-  ];
+
+  const [skills,setSkills]=useState([]);
+      // Function to fetch the description items from the API
+      const fetchskillsData = async () => {
+        try {
+          const response = await fetch("http://localhost:5000/api/get/skills");
+    
+          if (!response.ok) {
+            throw new Error("Failed to fetch description items");
+          }
+    
+          const data = await response.json();
+          setSkills(data);
+        } catch (error) {
+          console.error(error);
+          // Handle error
+        }
+      };
+    
+      // Fetch the description items when the component mounts
+      useEffect(() => {
+        fetchskillsData();
+      }, []);
 
   return (
     <div className={`${screen === "small" ? "col-md-6" : "col-md-12"} my-2`}>
@@ -29,8 +35,8 @@ function PublicSkill({screen}) {
           </p>
           {skills.map((skill, index) => (
             <div key={index}>
-              <p className="mb-1">{skill.category}</p>
-              <p style={{ fontSize: ".77rem" }}>{skill.details}</p>
+              <p className="mb-1">{skill.label}</p>
+              <p style={{ fontSize: ".77rem" }}>{skill.value}</p>
             </div>
           ))}
         </div>

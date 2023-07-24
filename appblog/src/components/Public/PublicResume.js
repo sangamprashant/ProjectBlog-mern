@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../../context/LoginContext";
 
-function PublicResume({status}) {
+function PublicResume({ status }) {
   const [showResume, setShowResume] = useState(false);
-
+  const [resume, setResume] = useState("");
+  const { user } = useContext(LoginContext);
   useEffect(() => {
     setShowResume(status !== "close");
   }, [status]);
@@ -14,31 +16,55 @@ function PublicResume({status}) {
   const closeResume = () => {
     setShowResume(false);
   };
+
+  // Inside the fetchProjects function
+  const fetchProjects = async (type) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/resume/${type}`);
+      const data = await response.json();
+      setResume(data.imageUrl);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    }
+  };
+
+  // Fetch work experience and education data on component mount
+  useEffect(() => {
+    if (user) {
+      fetchProjects(user._id);
+    }
+  }, [user, showResume]);
   return (
-    <div className="card my-2">
-      <div className="card-body">
-        <h5 className="card-title">Resume</h5>
-        <div className="text-center">
-        {!showResume && (
-          <button className="btn btn-primary " onClick={openResume}>
-            Open Resume
-          </button>
-        )}
-        {showResume && (
-          <div>
-            <iframe
-              src="https://firebasestorage.googleapis.com/v0/b/academic-quries.appspot.com/o/Pdf%2Fsoftware%20engernring.pdf95726e9f-b98f-476f-8bb3-21eead9b8197?alt=media&token=1299dc3e-ffc4-4a75-8d26-185c8325eb31"
-              title="Resume"
-              style={{ width: "100%", height: "500px" }}
-            ></iframe>
-            <button className="btn btn-secondary mt-2" onClick={closeResume}>
-              Close
-            </button>
+    <div>
+      {resume && (
+        <div className="card my-2">
+          <div className="card-body">
+            <h5 className="card-title">Resume</h5>
+            <div className="text-center">
+              {!showResume && (
+                <button className="btn btn-primary " onClick={openResume}>
+                  Open Resume
+                </button>
+              )}
+              {showResume && (
+                <div>
+                  <iframe
+                    src={resume}
+                    title="Resume"
+                    style={{ width: "100%", height: "500px" }}
+                  ></iframe>
+                  <button
+                    className="btn btn-secondary mt-2"
+                    onClick={closeResume}
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        )}
         </div>
-     
-      </div>
+      )}
     </div>
   );
 }

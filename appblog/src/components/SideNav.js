@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./css/Public.css"
 
-function SideNav() {
-  const contactItems = [
-    { icon: "fa fa-globe", content: "https://mdbootstrap.com" },
-    { icon: "fa fa-github", content: "mdbootstrap" },
-    { icon: "fa fa-twitter", content: "@mdbootstrap" },
-    { icon: "fa fa-twitter", content: "@mdbootstrap" },
-    { icon: "fa fa-twitter", content: "@mdbootstrap" },
-    { icon: "fa fa-twitter", content: "@mdbootstrap" },
-    { icon: "fa fa-instagram", content: "mdbootstrap" },
-    { icon: "fa fa-facebook-f", content: "mdbootstrap" },
-    { icon: "fa fa-instagram", content: "mdbootstrap" },
-    { icon: "fa fa-instagram", content: "mdbootstrap" },
-    { icon: "fa fa-instagram", content: "mdbootstrap" },
-  ];
+function SideNav({footer,}) {
+
   // Get the first 4 items from the contactItems array
-  const firstFourItems = contactItems.slice(0, 4);
+  const firstFourItems = footer.slice(0, 4);
   const colors = ["#f39c12", "#333333", "#55acee", "#ac2bac", "#3b5998"];
   return (
-    <div>
-      <div className="contact card my-4">
+    <div className="contact">
+      <div className=" card my-4">
         <div className="view-account">
           <section className="module">
             <div className="module-inner">
@@ -39,7 +28,7 @@ function SideNav() {
                             fontSize: "30px",
                           }}
                         ></i>
-                        <p className="mb-0">{item.content}</p>
+                        <p className="mb-0">{item.name}</p>
                       </li>
                     ))}
                   </ul>

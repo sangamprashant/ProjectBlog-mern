@@ -9,7 +9,7 @@ function Setting() {
           <h2 class="title"> Admin Setting </h2>
         </div>
         <div style={{ width: "100%" }}>
-          <div style={{ marginTop: "100px" }}>
+          <div >
             <div className="login-page">
               <div className="form">
                 <p>Setting</p>

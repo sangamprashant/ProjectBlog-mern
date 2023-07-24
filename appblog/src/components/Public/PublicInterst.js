@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function PublicIntrest() {
+  const [interests, setinterest] = useState([]);
+
+  // Function to fetch the description items from the API
+  const fetchinterestData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/get/interest");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch description items");
+      }
+
+      const data = await response.json();
+      setinterest(data);
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+
+  // Fetch the description items when the component mounts
+  useEffect(() => {
+    fetchinterestData();
+  }, []);
   return (
-    <div className="my-3" style={{backgroundColor:"white"}}>
-      <div class="card-body mb-4 mb-md-0">
-          <div class="interests-items">
-            <div class="draw">
-              <i class="fa fa-paint-brush"></i>
-              <span>Draw</span>
-            </div>
-            <div class="movie">
-              <i class="fa fa-film"></i>
-              <span>Movie</span>
-            </div>
-            <div class="music">
-              <i class="fa fa-headphones"></i>
-              <span>Music</span>
-            </div>
-            <div class="game">
-              <i class="fa fa-gamepad"></i>
-              <span>Game</span>
-            </div>
+    <div>
+      <div className="card my-3" style={{ backgroundColor: "white" }}>
+        <div className="card-body mb-4 mb-md-0">
+          <h4>Interests</h4>
+          <div className="interests-items">
+            {interests.map((interest, index) => (
+              <div key={index}>
+                <i className={` ${interest.icon}`}></i>
+                <span>{interest.label}</span>
+              </div>
+            ))}
           </div>
+        </div>
       </div>
     </div>
   );

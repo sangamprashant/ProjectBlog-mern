@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function TopNav() {
+function TopNav({login}) {
+  const token = localStorage.getItem("jwt");
   const navigationItems = [
     { to: "/", label: "Profile", icon: "fa fa-user" },
     { to: "/prashant/profile", label: "Details", icon: "fa fa-user" },
@@ -12,7 +13,19 @@ function TopNav() {
     { to: "/prashant/certificates", label: "Certificates", icon: "fa fa-file-text" },
     { to: "/prashant/resume", label: "Resume", icon: "fa fa-file-text" },
     { to: "/prashant/intrest", label: "Interests", icon: "fa fa-file-text" },
-    { to: "/admin/setting", label: "Settings", icon: "fa fa-cog" },
+  ];
+  const AdminNavigationItems = [
+    { to: "/admin/header", label: "Admin Header", icon: "fa fa-user" },
+    { to: "/admin/description", label: "Admin Details", icon: "fa fa-user" },
+    { to: "/admin/progress", label: "Admin Progress", icon: "fa fa-credit-card" },
+    { to: "/admin/skill", label: "Admin Skill", icon: "fa fa-graduation-cap" },
+    { to: "/admin/qualification", label: "Admin Qualification", icon: "fa fa-code" },
+    { to: "/admin/projects", label: "Admin Projects", icon: "fa fa-file-text" },
+    { to: "/admin/certificates", label: "Admin Certificates", icon: "fa fa-file-text" },
+    { to: "/admin/resume", label: "Admin Resume", icon: "fa fa-file-text" },
+    { to: "/admin/intrest", label: "Admin Interests", icon: "fa fa-file-text" },
+    { to: "/admin/footer", label: "Admin footer", icon: "fa fa-cog" },
+    { to: "/admin/setting", label: "Admin Settings", icon: "fa fa-cog" },
   ];
 
   return (
@@ -28,6 +41,13 @@ function TopNav() {
                       <li key={index}>
                         <Link to={item.to} className="nav-item">
                           <span className={item.icon}></span> {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                    {(login||token)&&AdminNavigationItems.map((item, index) => (
+                      <li key={index}>
+                        <Link to={item.to} className="nav-item" style={{color:'blue'}}>
+                          <span className={item.icon} ></span> {item.label}
                         </Link>
                       </li>
                     ))}

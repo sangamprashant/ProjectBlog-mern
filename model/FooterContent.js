@@ -4,7 +4,7 @@ const { ObjectId } = Schema.Types;
 
 const resumeSchema = new Schema(
   {
-    imageUrl: {
+    content: {
       type: String,
       required: true,
     },
@@ -17,5 +17,5 @@ const resumeSchema = new Schema(
   { timestamps: true }
 );
 
-const Resume = mongoose.model("PROJECTBLOGRESUME", resumeSchema);
+const Resume = mongoose.model("PROJECTBLOGFOOTERCONTENT", resumeSchema);
 module.exports = Resume;

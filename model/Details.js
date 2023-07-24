@@ -1,18 +1,16 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
-const adminSchema = new mongoose.Schema(
-  {
-    email: {
+const userProfileSchema = new mongoose.Schema({
+    label: {
       type: String,
       required: true,
     },
-    password: {
+    value: {
       type: String,
       required: true,
     },
-  },
-  { timestamps: true }
-);
+  });
 
-mongoose.model("PROJECTBLOGUSER", adminSchema);
+
+mongoose.model("PROJECTBLOGDETAILS", userProfileSchema);

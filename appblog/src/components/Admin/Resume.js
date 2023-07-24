@@ -1,145 +1,125 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { storage } from "../../firebase/FirebaseLink";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
-function Resume() {
-  const [uploadContainer, setUploadContainer] = useState(false);
+function Resume({ user }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  //cloudinary img
-  const [image, setImage] = useState("");
-  //from server
-  const [resume, setResume] = useState(null);
-  //to server
-  const [url, setUrl] = useState("");
+  const [resume, setResume] = useState("");
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImageUrl(event.target.result);
-        setImage(e.target.files[0]);
-      };
-      reader.readAsDataURL(file);
+  // Inside the fetchProjects function
+  const fetchProjects = async (type) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/resume/${type}`);
+      const data = await response.json();
+      setResume(data.imageUrl);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
     }
   };
-  //upload to server
-  const handelOnClickUpload = () => {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "instacloneps");
-    data.append("cloud_name", "psss9799");
-    fetch("https://api.cloudinary.com/v1_1/psss9799/image/upload", {
-      method: "post",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => setUrl(data.url))
-      .catch((err) => console.log(err));
-  };
 
+  // Fetch work experience and education data on component mount
   useEffect(() => {
-    setImageUrl(""); // Reset the image URL when uploadContainer changes
-  }, [uploadContainer]);
-
-  //get from server
-  useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("user"))._id;
-    fetch(`http://localhost:5000/api/resume/${userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setResume(data.imageUrl);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch resume:", error);
-      });
+    fetchProjects(user._id);
   }, []);
-
-  //to send to server from cludniry
-  useEffect(() => {
-    if (url) {
-      const userId = JSON.parse(localStorage.getItem("user"))._id;
-      fetch("http://localhost:5000/api/admin/add/resume", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          imageUrl: url,
-          userId,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            console.log(data.error);
-          } else {
-            console.log("Resume uploaded:", data);
-            setUploadContainer(false);
-          }
-        })
-        .catch((err) => console.log(err));
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    // Update the avatar URL preview
+    setImageUrl(file ? URL.createObjectURL(file) : null);
+  };
+  const uploadFile = () => {
+    if (!selectedFile) {
+      toast.error("Please fill all the file");
+      return;
+    } else {
+      const fileRef = ref(storage, `resume/${selectedFile.name + uuidv4()}`);
+      uploadBytes(fileRef, selectedFile).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImageUrl(url);
+          handleUpload(url);
+        });
+      });
     }
-  }, [url]);
+  };
+  const handleUpload = async (url) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/admin/add/resume`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          body: JSON.stringify({
+            imageUrl: url,
+            userId: user._id,
+          }),
+        }
+      );
 
+      if (response.ok) {
+        const data = await response.json();
+        toast.success("Resume uploaded successfully");
+        setImageUrl("");
+        fetchProjects(user._id);
+      } else {
+        const data = await response.json();
+        toast.error(data.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
-      <div className="content-panel">
-        <div className="content-header-wrapper">
-          <h2 className="title">Admin Resume</h2>
-          <div className="actions">
-            {!uploadContainer ? (
-              <button
-                className="btn btn-success"
-                onClick={() => setUploadContainer(true)}
-              >
-                <i className="fa fa-plus"></i> Upload New Item
-              </button>
-            ) : (
-              <button
-                className="btn btn-danger"
-                onClick={() => setUploadContainer(false)}
-              >
-                <i className="fa fa-times"></i> Cancel upload
-              </button>
+      {/* input  */}
+      <div className="card my-2">
+        <div className="card-body">
+          <h5 className="card-title">Resume</h5>
+          <div className="text-center">
+            <div className="col">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="form-control"
+              />
+            </div>
+            {imageUrl && (
+              <div>
+                <iframe
+                  src={imageUrl}
+                  title="Resume"
+                  style={{ width: "100%", height: "500px" }}
+                ></iframe>
+              </div>
             )}
+            <button className="btn btn-secondary mt-2" onClick={uploadFile}>
+              Update
+            </button>
           </div>
         </div>
-        <hr />
-
-        {!uploadContainer ? (
-          <iframe style={{ width: "100%",height:'800px' }} src={resume} alt="resume" />
-        ) : (
-          <div className="row justify-content-center">
-            <div className="col-md-12 col-lg-10 col-12">
-              <div className="form-group files">
-                <label className="my-auto">Upload Your File</label>
-                <input
-                  type="file"
-                  className="form-control"
-                  onChange={handleFileChange}
-                />
+      </div>
+      {/* display */}
+      {resume && (
+        <div className="card my-2">
+          <div className="card-body">
+            <h5 className="card-title">Resume</h5>
+            <div className="text-center">
+              <div>
+                <iframe
+                  src={resume}
+                  title="Resume"
+                  style={{ width: "100%", height: "500px" }}
+                ></iframe>
               </div>
-              {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt="uploaded file"
-                  style={{ maxWidth: "100%" }}
-                />
-              )}
-              <button
-                className="uploadBtn"
-                onClick={() => {
-                  handelOnClickUpload();
-                }}
-              >
-                Upload
-              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

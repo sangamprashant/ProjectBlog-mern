@@ -15,14 +15,13 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       enum: ["web", "application"],
-      required: true,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "PROJECTBLOGUSER",
       required: true,
     },
   },

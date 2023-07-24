@@ -10,9 +10,9 @@ const requireLoginAdmin = require("../middleware/requireLogin")
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 router.post("/api/admin/signup", async (req, res) => {
-  const { name, email, password, userName } = req.body;
+  const { email, password } = req.body;
 
-  if (!name || !email || !password || !userName) {
+  if (!email || !password) {
     return res.status(422).json({ error: "Please fill in all the fields" });
   }
 
@@ -21,23 +21,20 @@ router.post("/api/admin/signup", async (req, res) => {
   }
 
   try {
-    const existingUser = await PROJECTBLOGUSER.findOne({
-      $or: [{ email: email }, { userName: userName }],
-    });
+    const existingUser = await PROJECTBLOGUSER.findOne({ email });
+
     if (existingUser) {
-      return res.status(422).json({
-        error: "User already exists with that email or username",
-      });
+      return res
+        .status(422)
+        .json({ error: "User already exists with that email" });
     }
 
-    // Save user to database
+    // Save user to the database
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const userRec = new PROJECTBLOGUSER({
-      name,
       email,
       password: hashedPassword,
-      userName,
     });
 
     const savedUser = await userRec.save();
@@ -50,25 +47,6 @@ router.post("/api/admin/signup", async (req, res) => {
   }
 });
 
-// Route for checking username availability
-router.post("/api/admin/check-username", async (req, res) => {
-  const { userName } = req.body;
-
-  try {
-    // Check if the username exists in the database
-    const existingUser = await PROJECTBLOGUSER.findOne({ userName });
-
-    if (existingUser) {
-      return res.json({ error: "Username already taken" });
-    }
-
-    // Username is available
-    res.json({ message: "Username available" });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-});
 //signin
 router.post("/api/admin/signin", (req, res) => {
   const { email, password } = req.body;
@@ -89,8 +67,8 @@ router.post("/api/admin/signin", (req, res) => {
       .then((match) => {
         if (match) {
           const token = jwt.sign({ _id: savedUser.id }, Jwt_secret);
-          const { _id, name, email,userName } = savedUser;
-          res.json({ token, user: { _id, name, email,userName} });
+          const { _id,  email } = savedUser;
+          res.json({ token, user: { _id,  email} });
         } else {
           return res.status(422).json({ error: "Invalid password" });
         }
