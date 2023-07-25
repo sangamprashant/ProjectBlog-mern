@@ -3,6 +3,7 @@ import { storage } from "../../firebase/FirebaseLink";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function PublicProject() {
   const [showAllWeb, setShowAllWeb] = useState(false);
@@ -48,11 +49,9 @@ function PublicProject() {
   const fetchProjects = async (type) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/get/projects/${type}`
+        `/api/get/projects/${type}`
       );
       const data = await response.json();
-
-      console.log("Fetched data for type", type, ":", data);
 
       if (type === "web") {
         setWebData(data.projects); // Data is an array of objects with properties: imageUrl, email, etc.
@@ -73,7 +72,7 @@ function PublicProject() {
   return (
     <div className=" ">
       {/* display */}
-      <div className="card p-3 my-2" ref={androidRef}>
+      {androidData&&<div className="card p-3 my-2" ref={androidRef}>
         <div className="d-flex justify-content-between align-items-center">
           <h3 style={{ whiteSpace: "nowrap" }}>
             <i className="fa fa-briefcase"></i> Android Projects
@@ -87,18 +86,18 @@ function PublicProject() {
               .slice(0, showAllAndroid ? androidData.length : 3)
               .map((item, index) => (
                 <div class=" col-xl-4 col-lg-6 mb-4" key={index}>
-                  <div className="card">
+                <a className="card" href={item.link} target="_blank">
                     <img
                       class="card-img-top"
                       src={item.imageUrl}
-                      style={{ width: "200px", height: "200px" }}
+                      style={{ width: "100%", height: "250px", objectFit:'cover' }}
                       alt="Card image cap"
                     />
                     <div class="card-body">
                       <h5 class="card-title">{item.title}</h5>
                       <p class="card-text">{item.description}</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               ))}
         </div>
@@ -109,8 +108,8 @@ function PublicProject() {
             </button>
           </div>
         )}
-      </div>
-      <div className="card p-3 my-2" ref={webRef}>
+      </div>}
+      {webData&&<div className="card p-3 my-2" ref={webRef}>
         <div className="d-flex justify-content-between align-items-center">
           <h3 style={{ whiteSpace: "nowrap" }}>
             <i className="fa fa-briefcase"></i> Web Projects
@@ -123,18 +122,18 @@ function PublicProject() {
               .slice(0, showAllWeb ? webData.length : 3)
               .map((item, index) => (
                 <div class=" col-xl-4 col-lg-6 mb-4" key={index}>
-                  <div className="card">
+                  <a className="card" href={item.link} target="_blank">
                     <img
                       class="card-img-top"
                       src={item.imageUrl}
-                      style={{ width: "200px", height: "200px" }}
+                      style={{ width: "100%", height: "250px", objectFit:'cover' }}
                       alt="Card image cap"
                     />
                     <div class="card-body">
                       <h5 class="card-title">{item.title}</h5>
                       <p class="card-text">{item.description}</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               ))}
         </div>
@@ -145,7 +144,7 @@ function PublicProject() {
             </button>
           </div>
         )}
-      </div>
+      </div>}
     </div>
   );
 }

@@ -32,6 +32,7 @@ import Resume from "./components/Admin/Resume";
 import Setting from "./components/Admin/Setting";
 import Intrest from "./components/Admin/Intrest";
 import Footer from "./components/Admin/Footer";
+import ForgotPassword from "./components/Admin/ForgotPassword";
 function App() {
   const [logged, setLogged] = useState(false);
   const [user,setUser] =useState([]);
@@ -85,6 +86,7 @@ function App() {
                     <Route   path="/admin/setting"   element={<Setting />} />
                     <Route   path="/admin/intrest"   element={<Intrest />} />
                     <Route   path="/admin/footer"   element={<Footer footer={footer} setFooter={setFooter} footerContent={footerContent} setFooterContent={setFooterContent} user={user} />} />
+                    <Route   path="/admin/forgot/password"   element={<ForgotPassword />} />
                   </Routes>
                   <PublicFooter footer={footer} setFooter={setFooter} footerContent={footerContent} setFooterContent={setFooterContent} user={user}/>
                 </div>

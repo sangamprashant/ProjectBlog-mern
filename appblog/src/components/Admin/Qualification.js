@@ -14,7 +14,7 @@ function Qualification() {
   const fetchQualifications = async (type) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/get/Qualifications/${type}`
+        `/api/get/Qualifications/${type}`
       );
       const data = await response.json();
 
@@ -44,7 +44,7 @@ function Qualification() {
       }
 
       // Send a request to add the qualification to the server
-      await fetch("http://localhost:5000/api/admin/add/Qualifications", {
+      await fetch("/api/admin/add/Qualifications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ function Qualification() {
   const deleteDescriptionItem = async (content) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/qualifications/${content._id}`,
+        `/api/delete/qualifications/${content._id}`,
         {
           method: "DELETE",
           headers: {

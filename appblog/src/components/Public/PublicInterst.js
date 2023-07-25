@@ -6,7 +6,7 @@ function PublicIntrest() {
   // Function to fetch the description items from the API
   const fetchinterestData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/interest");
+      const response = await fetch("/api/get/interest");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -26,19 +26,21 @@ function PublicIntrest() {
   }, []);
   return (
     <div>
-      <div className="card my-3" style={{ backgroundColor: "white" }}>
-        <div className="card-body mb-4 mb-md-0">
-          <h4>Interests</h4>
-          <div className="interests-items">
-            {interests.map((interest, index) => (
-              <div key={index}>
-                <i className={` ${interest.icon}`}></i>
-                <span>{interest.label}</span>
-              </div>
-            ))}
+      {interests && (
+        <div className="card my-3" style={{ backgroundColor: "white" }}>
+          <div className="card-body mb-4 mb-md-0">
+            <h4>Interests</h4>
+            <div className="interests-items">
+              {interests.map((interest, index) => (
+                <div key={index}>
+                  <i className={` ${interest.icon}`}></i>
+                  <span>{interest.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

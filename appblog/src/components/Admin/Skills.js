@@ -11,7 +11,7 @@ function Skills({screen}) {
     // Function to fetch the description items from the API
     const fetchskillsData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/get/skills");
+        const response = await fetch("/api/get/skills");
   
         if (!response.ok) {
           throw new Error("Failed to fetch description items");
@@ -34,7 +34,7 @@ function Skills({screen}) {
       if (newTitle && newValue) {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/admin/add/skills",
+            "/api/admin/add/skills",
             {
               method: "POST",
               headers: {
@@ -68,7 +68,7 @@ function Skills({screen}) {
     const deleteDescriptionItem = async (id) => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/delete/skills/${id}`,
+          `/api/delete/skills/${id}`,
           {
             method: "DELETE",
             headers: {

@@ -12,7 +12,7 @@ function Resume({ user }) {
   // Inside the fetchProjects function
   const fetchProjects = async (type) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/resume/${type}`);
+      const response = await fetch(`/api/resume/${type}`);
       const data = await response.json();
       setResume(data.imageUrl);
     } catch (error) {
@@ -47,7 +47,7 @@ function Resume({ user }) {
   const handleUpload = async (url) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/add/resume`,
+        `/api/admin/add/resume`,
         {
           method: "POST",
           headers: {
@@ -90,11 +90,11 @@ function Resume({ user }) {
             </div>
             {imageUrl && (
               <div>
-                <iframe
+                <embed
                   src={imageUrl}
                   title="Resume"
                   style={{ width: "100%", height: "500px" }}
-                ></iframe>
+                ></embed>
               </div>
             )}
             <button className="btn btn-secondary mt-2" onClick={uploadFile}>
@@ -110,11 +110,11 @@ function Resume({ user }) {
             <h5 className="card-title">Resume</h5>
             <div className="text-center">
               <div>
-                <iframe
+                <embed
                   src={resume}
                   title="Resume"
                   style={{ width: "100%", height: "500px" }}
-                ></iframe>
+                ></embed>
               </div>
             </div>
           </div>

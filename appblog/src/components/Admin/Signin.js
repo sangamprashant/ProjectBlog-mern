@@ -12,7 +12,7 @@ function Signin() {
   const notifyB = (msg) => toast.success(msg);
   const postData = () => {
     // Sending data to server
-    fetch(`http://localhost:5000/api/admin/signin`, {
+    fetch(`/api/admin/signin`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Signin() {
               login
             </button>
             <p className="message">
-              Not registered? <Link to="/admin/signup">Create an account</Link>
+              Forgot password? <Link to="/admin/forgot/password">Reset password.</Link>
             </p>
           </form>
         </div>

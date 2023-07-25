@@ -8,7 +8,7 @@ function PublicProgressBar({screen}) {
     // Function to fetch the description items from the API
     const fetchProgressData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/get/progress");
+        const response = await fetch("/api/get/progress");
   
         if (!response.ok) {
           throw new Error("Failed to fetch description items");
@@ -33,8 +33,8 @@ function PublicProgressBar({screen}) {
       <div className="card mb-4 mb-md-0">
         <div className="card-body">
           <p className="mb-4">
-            <span className="text-primary font-italic me-1">Assignment</span>{" "}
-            Project Status
+            <span className="text-primary font-italic me-1">Skills</span>{" "}
+             Status
           </p>
           {progressData.map((item, index) => (
             <React.Fragment key={index}>

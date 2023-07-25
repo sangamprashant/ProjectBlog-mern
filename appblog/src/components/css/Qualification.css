@@ -137,7 +137,7 @@
   .follow .box i {
     display: inline-block;
     font-size: 30px;
-    background: #8d9e78;
+    background: #006fff;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -183,7 +183,7 @@
     width: 60px;
     height: 60px;
     line-height: 60px;
-    color: #8d9e78;
+    color: #006fff;
     transition-duration: 0.3s;
   }
    .interests-items div i.guitar {

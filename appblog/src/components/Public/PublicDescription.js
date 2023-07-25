@@ -7,7 +7,7 @@ const [descriptionItems, setDescriptionItems] = useState([]);
 // Function to fetch the description items from the API
 const fetchDescriptionItems = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/get/details");
+    const response = await fetch("/api/get/details");
 
     if (!response.ok) {
       throw new Error("Failed to fetch description items");
@@ -29,7 +29,7 @@ useEffect(() => {
 
   return (
     <div>
-      <div className="card mb-4">
+      {descriptionItems&&<div className="card mb-4">
         <div className="card-body">
           {descriptionItems.map((item, index) => (
             <div className="row" key={index}>
@@ -43,7 +43,7 @@ useEffect(() => {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

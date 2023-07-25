@@ -7,7 +7,7 @@ function PublicHead() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/get/userprofile", {
+        const response = await fetch("/api/get/userprofile", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

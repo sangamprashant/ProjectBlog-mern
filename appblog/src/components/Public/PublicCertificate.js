@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function PublicCertificate() {
   const [showAll, setShowAll] = useState(false);
@@ -12,7 +13,7 @@ function PublicCertificate() {
   // Function to fetch the description items from the API
   const fetchcertificateData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/certificate");
+      const response = await fetch("/api/get/certificate");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -34,7 +35,7 @@ function PublicCertificate() {
   return (
     <div>
       {/* display */}
-      <div className="card p-3 my-3">
+      {certificate&&<div className="card p-3 my-3">
         <div className="d-flex justify-content-between align-items-center">
           <h3 style={{ whiteSpace: "nowrap" }}>
             <i className="fa fa-briefcase"></i> Certificate
@@ -45,7 +46,7 @@ function PublicCertificate() {
           {certificate
             .slice(0, showAll ? certificate.length : 3)
             .map((item, index) => (
-              <div className="col-xl-4 col-lg-6 mb-4" key={index}>
+              <Link className="col-xl-4 col-lg-6 mb-4" key={index} to={item.link} target="_blank">
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex align-items-center">
@@ -56,7 +57,7 @@ function PublicCertificate() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
         </div>
         {certificate.length > 3 && (
@@ -72,7 +73,7 @@ function PublicCertificate() {
             )}
           </div>
         )}
-      </div>
+      </div>}
     </div>
   );
 }

@@ -20,7 +20,7 @@ function PublicResume({ status }) {
   // Inside the fetchProjects function
   const fetchProjects = async (type) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/resume/${type}`);
+      const response = await fetch(`/api/resume/${type}`);
       const data = await response.json();
       setResume(data.imageUrl);
     } catch (error) {
@@ -48,11 +48,11 @@ function PublicResume({ status }) {
               )}
               {showResume && (
                 <div>
-                  <iframe
+                  <embed
                     src={resume}
                     title="Resume"
                     style={{ width: "100%", height: "500px" }}
-                  ></iframe>
+                  ></embed>
                   <button
                     className="btn btn-secondary mt-2"
                     onClick={closeResume}

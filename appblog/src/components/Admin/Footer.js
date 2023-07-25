@@ -11,7 +11,7 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
   // Inside the fetchProjects function
   const fetchFooterContent = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/Footercontent/${id}`);
+      const response = await fetch(`/api/Footercontent/${id}`);
       const data = await response.json();
       setFooterContentToInput(data.content);
       setFooterContent(data.content)
@@ -28,7 +28,7 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
   const handleUploadFooterContent = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/add/Footercontent`,
+        `/api/admin/add/Footercontent`,
         {
           method: "POST",
           headers: {
@@ -59,7 +59,7 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
   // Function to fetch the description items from the API
   const fetchfooterData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/footer");
+      const response = await fetch("/api/get/footer");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -82,7 +82,7 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
     if (newTitle && newValue && newName) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/add/footer",
+          "/api/admin/add/footer",
           {
             method: "POST",
             headers: {
@@ -119,7 +119,7 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
   const deleteDescriptionItem = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/footer/${id}`,
+        `/api/delete/footer/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -222,24 +222,9 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
       <div className="my-3">
         <hr />
 
-        <footer className="text-black text-center text-lg-start">
-          <div className="container p-4">
-            <div
-              className="row"
-              style={{ display: "flex", justifyContent: "space-around" }}
-            >
-              <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Footer Content</h5>
-
-                <p>
-                  {footerContent}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="follow">
-            <div className="box">
+        <footer className="text-black text-center text-lg-start ">
+          <div className="follow ">
+            <div className="box card py-3">
               {footer.map((item, index) => (
                 <div>
                   <a
@@ -254,15 +239,6 @@ function Footer({ setFooter, footer, footerContent, setFooterContent,user }) {
                 </div>
               ))}
             </div>
-          </div>
-          <div
-            className="text-center p-3"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-          >
-            © 2020 Copyright:
-            <Link className="text-black" to="/admin/signin">
-              Prashant Srivastav
-            </Link>
           </div>
         </footer>
       </div>

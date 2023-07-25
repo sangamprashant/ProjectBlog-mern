@@ -48,7 +48,7 @@ function Projects() {
   const fetchProjects = async (type) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/get/projects/${type}`
+        `/api/get/projects/${type}`
       );
       const data = await response.json();
 
@@ -92,7 +92,7 @@ function Projects() {
   const handleUpload = async (url) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/upload-project`,
+        `/api/admin/upload-project`,
         {
           method: "POST",
           headers: {
@@ -128,7 +128,7 @@ function Projects() {
   const deleteDescriptionItem = async (item) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/projects/${item._id}`,
+        `/api/delete/projects/${item._id}`,
         {
           method: "DELETE",
           headers: {

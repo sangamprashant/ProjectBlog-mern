@@ -27,7 +27,7 @@ function Certificate() {
   // Function to fetch the description items from the API
   const fetchcertificateData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/certificate");
+      const response = await fetch("/api/get/certificate");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -67,7 +67,7 @@ function Certificate() {
     if (newTitle && newdescription) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/add/certificate",
+          "/api/admin/add/certificate",
           {
             method: "POST",
             headers: {
@@ -102,7 +102,7 @@ function Certificate() {
   const deleteDescriptionItem = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/certificate/${id}`,
+        `/api/delete/certificate/${id}`,
         {
           method: "DELETE",
           headers: {

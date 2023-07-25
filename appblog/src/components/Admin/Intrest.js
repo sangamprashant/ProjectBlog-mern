@@ -10,7 +10,7 @@ function Intrest() {
   // Function to fetch the description items from the API
   const fetchinterestData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/interest");
+      const response = await fetch("/api/get/interest");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -33,7 +33,7 @@ function Intrest() {
     if (newTitle && newValue) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/add/interest",
+          "/api/admin/add/interest",
           {
             method: "POST",
             headers: {
@@ -67,7 +67,7 @@ function Intrest() {
   const deleteDescriptionItem = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/interest/${id}`,
+        `/api/delete/interest/${id}`,
         {
           method: "DELETE",
           headers: {

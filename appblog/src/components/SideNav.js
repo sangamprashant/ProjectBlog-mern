@@ -17,9 +17,11 @@ function SideNav({footer,}) {
                 <div className="card-body mb-4 mb-md-0">
                   <ul className="list-group list-group-flush rounded-3">
                     {firstFourItems.map((item, index) => (
-                      <li
+                      <Link
                         className="list-group-item d-flex justify-content-between align-items-center p-3"
                         key={index}
+to={item.link}
+target="_blank"
                       >
                         <i
                           className={`fa-lg ${item.icon}`}
@@ -29,7 +31,7 @@ function SideNav({footer,}) {
                           }}
                         ></i>
                         <p className="mb-0">{item.name}</p>
-                      </li>
+                      </Link>
                     ))}
                   </ul>
                 </div>

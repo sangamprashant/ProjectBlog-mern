@@ -6,7 +6,7 @@ function PublicFooter({footer,setFooter,footerContent,setFooterContent,user}) {
     // Inside the fetchProjects function
     const fetchFooterContent = async (id) => {
       try {
-        const response = await fetch(`http://localhost:5000/api/Footercontent/${id}`);
+        const response = await fetch(`/api/Footercontent/${id}`);
         const data = await response.json();
         setFooterContent(data.content)
       } catch (error) {
@@ -20,7 +20,7 @@ function PublicFooter({footer,setFooter,footerContent,setFooterContent,user}) {
    // Function to fetch the description items from the API
    const fetchfooterData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/footer");
+      const response = await fetch("/api/get/footer");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -50,8 +50,8 @@ function PublicFooter({footer,setFooter,footerContent,setFooterContent,user}) {
               className="row"
               style={{ display: "flex", justifyContent: "space-around" }}
             >
-              <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Footer Content</h5>
+              <div className="col-lg-12 col-md-12 mb-4 mb-md-0">
+                <h5 className="text-uppercase">Prashant Srivastav</h5>
 
                 <p>
                 {footerContent}
@@ -63,7 +63,7 @@ function PublicFooter({footer,setFooter,footerContent,setFooterContent,user}) {
           <div className="follow">
             <div className="box">
               {footer.map((item, index) => (
-                <a key={index} href={item.link}>
+                <a key={index} href={item.link} target="_blank">
                   <i className={item.icon}></i>
                 </a>
               ))}

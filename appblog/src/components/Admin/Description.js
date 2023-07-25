@@ -12,7 +12,7 @@ function Description() {
   // Function to fetch the description items from the API
   const fetchDescriptionItems = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/get/details");
+      const response = await fetch("/api/get/details");
 
       if (!response.ok) {
         throw new Error("Failed to fetch description items");
@@ -35,7 +35,7 @@ function Description() {
     if (newTitle && newValue) {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/add/details",
+          "/api/admin/add/details",
           {
             method: "POST",
             headers: {
@@ -69,7 +69,7 @@ function Description() {
   const deleteDescriptionItem = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete/details/${id}`,
+        `/api/delete/details/${id}`,
         {
           method: "DELETE",
           headers: {

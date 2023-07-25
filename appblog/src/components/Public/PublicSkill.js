@@ -6,7 +6,7 @@ function PublicSkill({screen}) {
       // Function to fetch the description items from the API
       const fetchskillsData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/get/skills");
+          const response = await fetch("/api/get/skills");
     
           if (!response.ok) {
             throw new Error("Failed to fetch description items");
@@ -31,7 +31,7 @@ function PublicSkill({screen}) {
         <div className="card-body">
           <p className="mb-4">
             <span className="text-primary font-italic me-1">Skills</span>{" "}
-            Project Status
+            {/* Project Status */}
           </p>
           {skills.map((skill, index) => (
             <div key={index}>

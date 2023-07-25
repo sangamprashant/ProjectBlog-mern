@@ -12,7 +12,7 @@ function Progress({screen}) {
     // Function to fetch the description items from the API
     const fetchProgressData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/get/progress");
+        const response = await fetch("/api/get/progress");
   
         if (!response.ok) {
           throw new Error("Failed to fetch description items");
@@ -35,7 +35,7 @@ function Progress({screen}) {
       if (newTitle && newValue) {
         try {
           const response = await fetch(
-            "http://localhost:5000/api/admin/add/progress",
+            "/api/admin/add/progress",
             {
               method: "POST",
               headers: {
@@ -69,7 +69,7 @@ function Progress({screen}) {
     const deleteDescriptionItem = async (id) => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/delete/progress/${id}`,
+          `/api/delete/progress/${id}`,
           {
             method: "DELETE",
             headers: {

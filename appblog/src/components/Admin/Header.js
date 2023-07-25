@@ -75,7 +75,7 @@ function Header() {
   const handleUpload = async (url) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/userprofile/${user._id}`,
+        `/api/admin/userprofile/${user._id}`,
         {
           method: "PUT",
           headers: {

@@ -17,7 +17,7 @@ function Signup() {
   useEffect(() => {
     if (userName) {
       // Checking username availability on input change
-      fetch(`http://localhost:5000/api/admin/check-username`, {
+      fetch(`/api/admin/check-username`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ function Signup() {
 
   const handleSubmit = () => {
     // Sending data to server
-    fetch(`http://localhost:5000/api/admin/signup`, {
+    fetch(`/api/admin/signup`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
